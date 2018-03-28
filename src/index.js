@@ -53,6 +53,7 @@ class Game extends React.Component {
                 <div className="restart-div">
                     <br></br>
                     <button className="restart" onClick={() => this.restart()}>Restart</button>
+                    <br></br>
                 </div>
             </div>
         );
@@ -164,6 +165,7 @@ class Board extends React.Component {
                     {this.renderSquare(23)}
                     {this.renderSquare(29)}
                     {this.renderSquare(35)}
+
                 </div>
             </div>
         );
@@ -181,11 +183,14 @@ function Square(props) {
 function calculateWinner(squares) {
     for (let z = 0; z < 36; z++) {
 
-        if (((squares[z] === squares[z + 1] && squares[z + 2] === squares[z + 3] && squares[z] === squares[z + 3])
+        if (
+            (
+            (squares[z] === squares[z + 1] && squares[z + 2] === squares[z + 3] && squares[z] === squares[z + 3] && !(z % 5 === 0 || z % 11 === 0 || z % 17 === 0 || z % 23 === 0 || z % 29 === 0 || z % 35 === 0))
             || (squares[z] === squares[z + 6] && squares[z + 12] === squares[z + 18] && squares[z] === squares[z + 18])
-            || (squares[z] === squares[z + 7] && squares[z + 14] === squares[z + 21] && squares[z] === squares[z + 21])
-            || (squares[z] === squares[z + 5] && squares[z + 10] === squares[z + 15] && squares[z] === squares[z + 15]))
-            && squares[z] != null) {
+                || (squares[z] === squares[z + 7] && squares[z + 14] === squares[z + 21] && squares[z] === squares[z + 21] && (z === 21 || z === 22 || z === 23 || z === 27 || z === 28 || z === 29 || z === 33 || z === 34 || z === 35))
+                || (squares[z] === squares[z + 5] && squares[z + 10] === squares[z + 15] && squares[z] === squares[z + 15] && (z === 3 || z === 4 || z === 5 || z === 9 || z === 10 || z === 11 || z === 15 || z === 16 || z === 17))
+         ) && squares[z] != null
+        ) {
             return true;
         }
     }
