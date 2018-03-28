@@ -185,11 +185,11 @@ function calculateWinner(squares) {
 
         if (
             (
-            (squares[z] === squares[z + 1] && squares[z + 2] === squares[z + 3] && squares[z] === squares[z + 3] && !(z % 5 === 0 || z % 11 === 0 || z % 17 === 0 || z % 23 === 0 || z % 29 === 0 || z % 35 === 0))
-            || (squares[z] === squares[z + 6] && squares[z + 12] === squares[z + 18] && squares[z] === squares[z + 18])
-                || (squares[z] === squares[z + 7] && squares[z + 14] === squares[z + 21] && squares[z] === squares[z + 21] && (z === 21 || z === 22 || z === 23 || z === 27 || z === 28 || z === 29 || z === 33 || z === 34 || z === 35))
+                (squares[z] === squares[z + 1] && squares[z + 2] === squares[z + 3] && squares[z] === squares[z + 3] && !(z % 5 === 0 || z % 11 === 0 || z % 17 === 0 || z % 23 === 0 || z % 29 === 0 || z % 35 === 0))
+                || (squares[z] === squares[z + 6] && squares[z + 12] === squares[z + 18] && squares[z] === squares[z + 18])
+                || (squares[z] === squares[z + 7] && squares[z + 14] === squares[z + 21] && squares[z] === squares[z + 21] && (z === 0 || z === 1 || z === 2 || z === 6 || z === 7 || z === 8 || z === 12 || z === 13 || z === 14))
                 || (squares[z] === squares[z + 5] && squares[z + 10] === squares[z + 15] && squares[z] === squares[z + 15] && (z === 3 || z === 4 || z === 5 || z === 9 || z === 10 || z === 11 || z === 15 || z === 16 || z === 17))
-         ) && squares[z] != null
+            ) && squares[z] != null
         ) {
             return true;
         }
