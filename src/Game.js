@@ -26,19 +26,17 @@ class Game extends React.Component {
                 <div className="game-info">
                     <div>{status}</div>
                 </div>
-                <br></br>
+                <br/>
                 <div className="game">
-                    <div className="game-board">
-                        <Board
-                            circles={current}
-                            onClick={i => this.handleClick(i)}
-                        />
-                    </div>
+                    <Board 
+                        circles={current}
+                        onClick={i => this.handleClick(i)}
+                    />
                 </div>
                 <div className="restart-div">
-                    <br></br>
+                    <br/>
                     <button className="restart" onClick={() => this.restart()}>Restart</button>
-                    <br></br>
+                    <br/>
                 </div>
             </div>
         );

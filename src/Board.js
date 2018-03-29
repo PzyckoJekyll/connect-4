@@ -5,7 +5,7 @@ import Dot from './Dot';
 class Board extends React.Component {
     render() {
         return (
-            <div>
+            <div className="game-board">
                 {this.renderLine(0)}
                 {this.renderLine(1)}
                 {this.renderLine(2)}
