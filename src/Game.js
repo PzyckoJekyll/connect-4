@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './Game.css';
-import Banner from './Banner';
+import Board from './Board';
 
 var colsMaxs = [5, 11, 17, 23, 29, 35];
 
@@ -84,49 +84,6 @@ class Game extends React.Component {
             moves: this.state.moves + 1
         });
     }
-}
-
-class Board extends React.Component {
-    render() {
-        return (
-            <div>
-                {this.renderLine(0)}
-                {this.renderLine(1)}
-                {this.renderLine(2)}
-                {this.renderLine(3)}
-                {this.renderLine(4)}
-                {this.renderLine(5)}
-            </div>
-        );
-    }
-
-    renderLine(p) {
-        return (
-            <div className="board-row">
-                {this.renderSquare(p)}
-                {this.renderSquare(p + 6)}
-                {this.renderSquare(p + 12)}
-                {this.renderSquare(p + 18)}
-                {this.renderSquare(p + 24)}
-                {this.renderSquare(p + 30)}
-            </div>
-        );
-    }
-
-    renderSquare(i) {
-        return (
-            <Square
-                value={this.props.circles[i]}
-                onClick={() => this.props.onClick(i)}
-            />
-        );
-    }
-}
-
-function Square(props) {
-    return (
-        <button className={`circle ${props.value}`} onClick={props.onClick} />
-    );
 }
 
 function calculateWinner(circles) {
