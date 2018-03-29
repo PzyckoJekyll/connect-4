@@ -1,11 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 
-class Dot extends React.Component {
-    render(){
+class Dot extends Component {
+    render() {
         return (
-        <button className={`circle ${this.props.value}`} onClick={this.props.onClick} />
-      );
+            <button className={`circle ${this.props.value}`} onClick={this.props.onClick} />
+        );
     }
 }
 

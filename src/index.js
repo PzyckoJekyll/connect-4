@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import Banner from './Banner';
 import Game from './Game';
+import './index.css';
 
-class ConnectFour extends React.Component {
+class ConnectFour extends Component {
     render() {
         return (
             <div>
-                <Banner/>
-                <br/>
-                <Game/>
+                <Banner />
+                <br />
+                <Game />
             </div>
         );
     }

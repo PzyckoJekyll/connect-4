@@ -1,11 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './Game.css';
+import React, { Component } from 'react';
 import Board from './Board';
+import './Game.css';
 
 var colsMaxs = [5, 11, 17, 23, 29, 35];
 
-class Game extends React.Component {
+class Game extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,17 +25,19 @@ class Game extends React.Component {
                 <div className="game-info">
                     <div>{status}</div>
                 </div>
-                <br/>
+                <br />
                 <div className="game">
-                    <Board 
-                        circles={current}
-                        onClick={i => this.handleClick(i)}
-                    />
+                    <div className="game-board">
+                        <Board
+                            circles={current}
+                            onClick={i => this.handleClick(i)}
+                        />
+                    </div>
                 </div>
                 <div className="restart-div">
-                    <br/>
+                    <br />
                     <button className="restart" onClick={() => this.restart()}>Restart</button>
-                    <br/>
+                    <br />
                 </div>
             </div>
         );

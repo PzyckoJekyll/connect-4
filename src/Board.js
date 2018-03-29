@@ -1,40 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Dot from './Dot';
+import React, { Component } from 'react';
+import Line from './Line';
 
-class Board extends React.Component {
+class Board extends Component {
     render() {
         return (
-            <div className="game-board">
-                {this.renderLine(0)}
-                {this.renderLine(1)}
-                {this.renderLine(2)}
-                {this.renderLine(3)}
-                {this.renderLine(4)}
-                {this.renderLine(5)}
-            </div>
-        );
-    }
-
-    renderLine(p) {
-        return (
-            <div className="board-row">
-                {this.renderDot(p)}
-                {this.renderDot(p + 6)}
-                {this.renderDot(p + 12)}
-                {this.renderDot(p + 18)}
-                {this.renderDot(p + 24)}
-                {this.renderDot(p + 30)}
-            </div>
-        );
-    }
-
-    renderDot(i) {
-        return (
-            <Dot
-                value={this.props.circles[i]}
-                onClick={() => this.props.onClick(i)}
-            />
+            this.props.circles.reduce((acc, val, idx) => {
+                const righe = 6;
+                const pos = idx % righe;
+                acc[pos] = (acc[pos] || []).concat(idx);
+                return acc;
+            }, []).map((indexes) =>
+                <div className="board-row">
+                    <Line onClick={this.props.onClick} circles={this.props.circles} indexes={indexes} />
+                </div>)
         );
     }
 }
