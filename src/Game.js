@@ -103,11 +103,13 @@ function setColsMaxs(columns, rows) {
 function calculateWinner(circles) {
     const stepPositive = rows - 1;
     const stepNegative = rows + 1;
+    const stepVertical = 1;
+    const stepOrizontal = rows;
     for (let z = 0; z < rows * columns; z++) {
-        if (((isValidStartVertical(z) && isConsecutiveFour(circles, z, 1))
-            || isConsecutiveFour(circles, z, rows)
-            || (isValidStartDiagonal(z, stepNegative) && isConsecutiveFour(circles, z, stepNegative))
-            || (isValidStartDiagonal(z, stepPositive) && isConsecutiveFour(circles, z, stepPositive))
+        if (((isValidStart(z, 0, stepVertical) && isConsecutiveFour(circles, z, stepVertical))
+            || isConsecutiveFour(circles, z, stepOrizontal)
+            || (isValidStart(z, 3, stepNegative) && isConsecutiveFour(circles, z, stepNegative))
+            || (isValidStart(z, 3, stepPositive) && isConsecutiveFour(circles, z, stepPositive))
         ) && circles[z] != null) {
             return true;
         }
@@ -121,12 +123,8 @@ function isConsecutiveFour(circles, index, step) {
         && circles[index] === circles[index + 3 * step];
 }
 
-function isValidStartVertical(index) {
-    return (index + 3 <= (Math.floor(index / rows) + 1) * rows - 1) && index + 3 <= rows * columns - 1;
-}
-
-function isValidStartDiagonal(index, step) {
-    return (Math.floor((index + 3 * step) / rows) === Math.floor(index / rows) + 3) && index + 3 * step <= rows * columns - 1;
+function isValidStart(index, offset, step) {
+    return (Math.floor((index + 3 * step) / rows) === Math.floor(index / rows) + offset) && index + 3 * step <= rows * columns - 1;
 }
 
 export default Game;
