@@ -3,9 +3,9 @@ import Board from './Board';
 import './Game.css';
 
 //indexes of the last position available per column
-var columns = 10;
-var rows = 8;
-var colsMaxs = setColsMaxs(columns,rows);
+var columns = 7;
+var rows = 6;
+var colsMaxs = setColsMaxs(columns, rows);
 
 class Game extends Component {
     constructor(props) {
@@ -93,9 +93,9 @@ class Game extends Component {
 }
 
 function setColsMaxs(columns, rows) {
-    var colsMaxs=[]
-    for(let i=1;i<=columns;i++){
-        colsMaxs.push((rows*i)-1);
+    var colsMaxs = []
+    for (let i = 1; i <= columns; i++) {
+        colsMaxs.push((rows * i) - 1);
     }
     return colsMaxs;
 }
@@ -103,11 +103,11 @@ function setColsMaxs(columns, rows) {
 function calculateWinner(circles) {
     const stepPositive = rows - 1;
     const stepNegative = rows + 1;
-    for (let z = 0; z < rows*columns; z++) {
+    for (let z = 0; z < rows * columns; z++) {
         if (((isValidStartVertical(z) && isConsecutiveFour(circles, z, 1))
             || isConsecutiveFour(circles, z, rows)
-            || (isConsecutiveFour(circles, z, stepNegative) && isValidStartDiagonal(z, stepNegative))
-            || (isConsecutiveFour(circles, z, stepPositive) && isValidStartDiagonal(z, stepPositive))
+            || (isValidStartDiagonal(z, stepNegative) && isConsecutiveFour(circles, z, stepNegative))
+            || (isValidStartDiagonal(z, stepPositive) && isConsecutiveFour(circles, z, stepPositive))
         ) && circles[z] != null) {
             return true;
         }
@@ -125,8 +125,8 @@ function isValidStartVertical(index) {
     return (index + 3 <= (Math.floor(index / rows) + 1) * rows - 1) && index + 3 <= rows * columns - 1;
 }
 
-function isValidStartDiagonal(index,step) {
-    return (index + 3 * step <= (Math.floor(index / rows) + 4) * rows - 1) && index + 3 <= rows * columns - 1;
+function isValidStartDiagonal(index, step) {
+    return (Math.floor((index + 3 * step) / rows) === Math.floor(index / rows) + 3) && index + 3 * step <= rows * columns - 1;
 }
 
 export default Game;
