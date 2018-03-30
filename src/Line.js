@@ -13,4 +13,5 @@ class Line extends Component {
         );
     }
 }
+
 export default Line;

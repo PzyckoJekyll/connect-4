@@ -8,7 +8,7 @@ class Game extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            circles: Array(36).fill(null),
+            circles: Array(props.rows * props.cols).fill(null),
             rIsNext: true,
             moves: 0
         };
@@ -60,7 +60,7 @@ class Game extends Component {
     restart() {
         colsMaxs = [5, 11, 17, 23, 29, 35];
         this.setState({
-            circles: Array(36).fill(null),
+            circles: Array(this.props.rows * this.props.cols).fill(null),
             rIsNext: true,
             moves: 0
         });
@@ -73,7 +73,7 @@ class Game extends Component {
 
         var nextPlayer = this.state.rIsNext ? "Red" : "Yellow";
 
-        var columnIndex = Math.abs(i / 6);
+        var columnIndex = Math.floor(i / 6);
         circles[colsMaxs[columnIndex]] = nextPlayer;
         colsMaxs[columnIndex] -= 1;
 
