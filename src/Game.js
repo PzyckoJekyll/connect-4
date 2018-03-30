@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Board from './Board';
 import './Game.css';
 
+//indexes of the last position available per column
 var colsMaxs = [5, 11, 17, 23, 29, 35];
 
 class Game extends Component {
@@ -71,17 +72,20 @@ class Game extends Component {
             return;
         }
 
-        var nextPlayer = this.state.rIsNext ? "Red" : "Yellow";
-
-        var columnIndex = Math.floor(i / 6);
-        circles[colsMaxs[columnIndex]] = nextPlayer;
-        colsMaxs[columnIndex] -= 1;
+        this.dropToken(i, circles);
 
         this.setState({
             circles: circles,
             rIsNext: !this.state.rIsNext,
             moves: this.state.moves + 1
         });
+    }
+
+    dropToken(i, circles) {
+        var nextPlayer = this.state.rIsNext ? "Red" : "Yellow";
+        var columnIndex = Math.floor(i / 6);
+        circles[colsMaxs[columnIndex]] = nextPlayer;
+        colsMaxs[columnIndex] -= 1;
     }
 }
 
