@@ -3,13 +3,15 @@ import Board from './Board';
 import './Game.css';
 
 //indexes of the last position available per column
-var colsMaxs = [5, 11, 17, 23, 29, 35];
+var columns=7;
+var rows = 6;
+var colsMaxs = setColsMaxs(columns,rows);
 
 class Game extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            circles: Array(props.rows * props.cols).fill(null),
+            circles: Array(columns * rows).fill(null),
             rIsNext: true,
             moves: 0
         };
@@ -49,7 +51,7 @@ class Game extends Component {
             status = "Winner: " + (!this.state.rIsNext ? 'Red' : 'Yellow');
         }
         else {
-            if (movesTot === 36) {
+            if (movesTot === this.state.circles.length) {
                 status = 'It\'s a Tie';
             }
             else
@@ -59,9 +61,9 @@ class Game extends Component {
     }
 
     restart() {
-        colsMaxs = [5, 11, 17, 23, 29, 35];
+        colsMaxs = setColsMaxs(columns, rows);
         this.setState({
-            circles: Array(this.props.rows * this.props.cols).fill(null),
+            circles: Array(columns * rows).fill(null),
             rIsNext: true,
             moves: 0
         });
@@ -89,12 +91,22 @@ class Game extends Component {
     }
 }
 
+function setColsMaxs(columns, rows) {
+    var colsMaxs=[]
+    for(let i=1;i<=columns;i++){
+        colsMaxs.push((rows*i)-1);
+    }
+    return colsMaxs;
+}
+
 function calculateWinner(circles) {
+    const stepPositive = rows - 1;
+    const stepNegative = rows + 1;
     for (let z = 0; z < 36; z++) {
-        if (((isConsecutiveFour(circles, z, 1) && (isInTheRightQuarter(z, 0) || isInTheRightQuarter(z, 18)))
-            || isConsecutiveFour(circles, z, 6)
-            || (isConsecutiveFour(circles, z, 7) && isInTheRightQuarter(z, 0))
-            || (isConsecutiveFour(circles, z, 5) && isInTheRightQuarter(z, 3))
+        if (((isValidStartVertical(z) && isConsecutiveFour(circles, z, 1))
+            || isConsecutiveFour(circles, z, rows)
+            || (isConsecutiveFour(circles, z, stepNegative) && isValidStartDiagonal(z, stepNegative))
+            || (isConsecutiveFour(circles, z, stepPositive) && isValidStartDiagonal(z, stepPositive))
         ) && circles[z] != null) {
             return true;
         }
@@ -103,19 +115,17 @@ function calculateWinner(circles) {
 }
 
 function isConsecutiveFour(circles, index, step) {
-    /*
-    the step define the interval between the dots: 
-    1 for vertical, 5 for positive diagonal, 7 for negative diagonal, and 6 for vertical lines.
-    */
     return circles[index] === circles[index + 1 * step]
         && circles[index + 2 * step] === circles[index + 3 * step]
         && circles[index] === circles[index + 3 * step];
 }
 
-function isInTheRightQuarter(index, startPosition) {
-    return (index === startPosition || index === startPosition + 1 || index === startPosition + 2
-        || index === startPosition + 6 || index === startPosition + 7 || index === startPosition + 8
-        || index === startPosition + 12 || index === startPosition + 13 || index === startPosition + 14);
+function isValidStartVertical(index) {
+    return (index + 3 <= (Math.floor(index / 6) + 1) * rows - 1) && index + 3 <= rows * columns - 1;
+}
+
+function isValidStartDiagonal(index,step) {
+    return (index + 3 * step <= (Math.floor(index / 6) + 4) * rows - 1) && index + 3 <= rows * columns - 1;
 }
 
 export default Game;

@@ -10,7 +10,7 @@ class ConnectFour extends Component {
             <div>
                 <Banner />
                 <br />
-                <Game rows={6} cols={6} win={4} />
+                <Game />
             </div>
         );
     }
