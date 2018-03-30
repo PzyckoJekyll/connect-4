@@ -124,7 +124,8 @@ function isConsecutiveFour(circles, index, step) {
 }
 
 function isValidStart(index, offset, step) {
-    return (Math.floor((index + 3 * step) / rows) === Math.floor(index / rows) + offset) && index + 3 * step <= rows * columns - 1;
+    return (Math.floor((index + 3 * step) / rows) === Math.floor(index / rows) + offset) 
+    && index + 3 * step <= rows * columns - 1;
 }
 
 export default Game;

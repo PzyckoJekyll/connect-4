@@ -4,12 +4,14 @@ import Dot from './Dot';
 class Line extends Component {
     render() {
         return (
-            this.props.indexes.map((index) =>
-                <Dot
-                    value={this.props.circles[index]}
-                    onClick={() => this.props.onClick(index)}
-                />
-            )
+            <div className="board-row">
+                {this.props.indexes.map((index) =>
+                    <Dot
+                        value={this.props.circles[index]}
+                        onClick={() => this.props.onClick(index)}
+                    />
+                )}
+            </div>
         );
     }
 }

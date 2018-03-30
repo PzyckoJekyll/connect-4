@@ -9,9 +9,8 @@ class Board extends Component {
                 acc[pos] = (acc[pos] || []).concat(idx);
                 return acc;
             }, []).map((indexes) =>
-                <div className="board-row">
-                    <Line onClick={this.props.onClick} circles={this.props.circles} indexes={indexes} />
-                </div>)
+                <Line onClick={this.props.onClick} circles={this.props.circles} indexes={indexes} />
+            )
         );
     }
 }
