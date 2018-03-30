@@ -5,8 +5,7 @@ class Board extends Component {
     render() {
         return (
             this.props.circles.reduce((acc, val, idx) => {
-                const righe = 6;
-                const pos = idx % righe;
+                const pos = idx % this.props.rows;
                 acc[pos] = (acc[pos] || []).concat(idx);
                 return acc;
             }, []).map((indexes) =>

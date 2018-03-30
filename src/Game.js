@@ -3,8 +3,8 @@ import Board from './Board';
 import './Game.css';
 
 //indexes of the last position available per column
-var columns=7;
-var rows = 6;
+var columns = 10;
+var rows = 8;
 var colsMaxs = setColsMaxs(columns,rows);
 
 class Game extends Component {
@@ -32,6 +32,7 @@ class Game extends Component {
                 <div className="game">
                     <div className="game-board">
                         <Board
+                            rows={rows}
                             circles={current}
                             onClick={i => this.handleClick(i)}
                         />
@@ -85,7 +86,7 @@ class Game extends Component {
 
     dropToken(i, circles) {
         var nextPlayer = this.state.rIsNext ? "Red" : "Yellow";
-        var columnIndex = Math.floor(i / 6);
+        var columnIndex = Math.floor(i / rows);
         circles[colsMaxs[columnIndex]] = nextPlayer;
         colsMaxs[columnIndex] -= 1;
     }
@@ -102,7 +103,7 @@ function setColsMaxs(columns, rows) {
 function calculateWinner(circles) {
     const stepPositive = rows - 1;
     const stepNegative = rows + 1;
-    for (let z = 0; z < 36; z++) {
+    for (let z = 0; z < rows*columns; z++) {
         if (((isValidStartVertical(z) && isConsecutiveFour(circles, z, 1))
             || isConsecutiveFour(circles, z, rows)
             || (isConsecutiveFour(circles, z, stepNegative) && isValidStartDiagonal(z, stepNegative))
@@ -121,11 +122,11 @@ function isConsecutiveFour(circles, index, step) {
 }
 
 function isValidStartVertical(index) {
-    return (index + 3 <= (Math.floor(index / 6) + 1) * rows - 1) && index + 3 <= rows * columns - 1;
+    return (index + 3 <= (Math.floor(index / rows) + 1) * rows - 1) && index + 3 <= rows * columns - 1;
 }
 
 function isValidStartDiagonal(index,step) {
-    return (index + 3 * step <= (Math.floor(index / 6) + 4) * rows - 1) && index + 3 <= rows * columns - 1;
+    return (index + 3 * step <= (Math.floor(index / rows) + 4) * rows - 1) && index + 3 <= rows * columns - 1;
 }
 
 export default Game;
