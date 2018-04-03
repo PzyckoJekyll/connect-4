@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './images/logo.svg';
 import './Banner.css';
 
 class Banner extends Component {
@@ -7,7 +6,7 @@ class Banner extends Component {
     return (
       <div className="Banner">
         <header className="Banner-header">
-          <img src={logo} className="Banner-logo" alt="logo" />
+          <img src="logo.svg" className="Banner-logo" alt="logo" />
         </header>
       </div>
     );
