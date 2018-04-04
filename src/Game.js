@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Board from './Board';
+import GameInfo from './GameInfo';
+import Restart from './Restart';
 import './Game.css';
 
-//indexes of the last position available per column
 var columns = 7;
 var rows = 6;
 var colsMaxs = setColsMaxs(columns, rows);
@@ -25,24 +26,13 @@ class Game extends Component {
 
         return (
             <div className="connect-4">
-                <div className="game-info">
-                    <div>{status}</div>
-                </div>
-                <br />
-                <div className="game">
-                    <div className="game-board">
-                        <Board
-                            rows={rows}
-                            circles={current}
-                            onClick={i => this.handleClick(i)}
-                        />
-                    </div>
-                </div>
-                <div className="restart-div">
-                    <br />
-                    <button className="restart" onClick={() => this.restart()}>Restart</button>
-                    <br />
-                </div>
+                <GameInfo status={status} />
+                <Board
+                    rows={rows}
+                    circles={current}
+                    onClick={i => this.handleClick(i)}
+                />
+                <Restart onClick={() => this.restart()} />
             </div>
         );
     }
@@ -120,12 +110,12 @@ function calculateWinner(circles) {
 function isConsecutiveFour(circles, index, step) {
     return circles[index] === circles[index + 1 * step]
         && circles[index + 2 * step] === circles[index + 3 * step]
-        && circles[index] === circles[index + 3 * step];
+        && circles[index] === circles[index + 3 * step]
 }
 
 function isValidStart(index, offset, step) {
-    return (Math.floor((index + 3 * step) / rows) === Math.floor(index / rows) + offset) 
-    && index + 3 * step <= rows * columns - 1;
+    return (Math.floor((index + 3 * step) / rows) === Math.floor(index / rows) + offset)
+        && index + 3 * step <= rows * columns - 1;
 }
 
 export default Game;
